@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My AI Agency | Lead Automation</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b1020;
+      color: #f8fafc;
+    }
+
+    header {
+      padding: 22px 8%;
+      border-bottom: 1px solid #26314a;
+    }
+
+    header h2 {
+      margin: 0;
+      color: #60a5fa;
+    }
+
+    main {
+      max-width: 850px;
+      margin: 90px auto;
+      padding: 24px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: clamp(34px, 6vw, 56px);
+      margin-bottom: 20px;
+    }
+
+    h1 span {
+      color: #60a5fa;
+    }
+
+    p {
+      color: #cbd5e1;
+      line-height: 1.7;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 14px 22px;
+      border-radius: 8px;
+      background: #2563eb;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .service {
+      margin-top: 55px;
+      padding: 25px;
+      border: 1px solid #26314a;
+      border-radius: 14px;
+      background: #111a2e;
+    }
+
+    footer {
+      padding: 25px;
+      text-align: center;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>My AI Agency</h2>
+  </header>
+
+  <main>
+    <h1>Work Smarter with <span>AI Automation</span></h1>
+
+    <p>
+      We help small businesses organize customer enquiries,
+      automate repetitive tasks, and save valuable time.
+    </p>
+
+    <a class="button" href="#services">Explore Our Service</a>
+
+    <section class="service" id="services">
+      <h2>Lead Management Automation</h2>
+      <p>
+        Capture customer enquiries, organize leads,
+        and simplify follow-ups with practical automation.
+      </p>
+      <p><strong>Our mission:</strong> Make business processes simpler.</p>
+    </section>
+  </main>
+
+  <section class="service" id="contact">
+  <h2>Get Started with Automation</h2>
+  <p>Tell us about your business and what you want to automate.</p>
+
+  <form id="leadForm">
+    <p>
+      <input
+        type="text"
+        id="name"
+        placeholder="Your name"
+        required
+      >
+    </p>
+
+    <p>
+      <input
+        type="email"
+        id="email"
+        placeholder="Your email"
+        required
+      >
+    </p>
+
+    <p>
+      <input
+        type="text"
+        id="business"
+        placeholder="Your business name"
+        required
+      >
+    </p>
+
+    <p>
+      <textarea
+        id="need"
+        placeholder="What would you like to automate?"
+        required
+      ></textarea>
+    </p>
+
+    <button class="button" type="submit">
+      Submit Enquiry
+    </button>
+
+    <p id="formMessage" role="status"></p>
+  </form>
+</section>
+
+<script>
+  const scriptURL = "https://script.google.com/macros/s/AKfycbwhxzm8ahWbAG8eq0ZgfHdsY29K8sNzP-w1lcvIcXYOJwMgsUOrCQ_GXVb1W_17FzudJQ/exec";
+
+  document.getElementById("leadForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const form = this;
+    const message = document.getElementById("formMessage");
+    const fields = form.querySelectorAll("input, textarea, select");
+
+    const data = {
+      name: fields[0]?.value || "",
+      email: fields[1]?.value || "",
+      business: fields[2]?.value || "",
+      requirement: fields[3]?.value || ""
+    };
+
+    message.textContent = "Sending enquiry...";
+
+    try {
+      await fetch(scriptURL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8"
+        },
+        body: JSON.stringify(data)
+      });
+
+      message.textContent =
+        "Your enquiry was submitted. Please check with us if you need confirmation.";
+      form.reset();
+    } catch (error) {
+      message.textContent =
+        "Could not submit. Please try again.";
+    }
+  });
+</script>
+  <footer>
+    © 2026 My AI Agency · Built with ambition.
+  </footer>
+</body>
+</html>
