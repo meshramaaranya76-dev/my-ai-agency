@@ -147,41 +147,13 @@
 </section>
 
 <script>
-  const scriptURL = "https://script.google.com/macros/s/AKfycbwhxzm8ahWbAG8eq0ZgfHdsY29K8sNzP-w1lcvIcXYOJwMgsUOrCQ_GXVb1W_17FzudJQ/exec";
-
-  document.getElementById("leadForm").addEventListener("submit", async function(event) {
+  document.getElementById("leadForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
-    const form = this;
-    const message = document.getElementById("formMessage");
-    const fields = form.querySelectorAll("input, textarea, select");
+    document.getElementById("formMessage").textContent =
+      "Thank you for your enquiry! Our lead system is being updated. Please try again later.";
 
-    const data = {
-      name: fields[0]?.value || "",
-      email: fields[1]?.value || "",
-      business: fields[2]?.value || "",
-      requirement: fields[3]?.value || ""
-    };
-
-    message.textContent = "Sending enquiry...";
-
-    try {
-      await fetch(scriptURL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "text/plain;charset=utf-8"
-        },
-        body: JSON.stringify(data)
-      });
-
-      message.textContent =
-        "Your enquiry was submitted. Please check with us if you need confirmation.";
-      form.reset();
-    } catch (error) {
-      message.textContent =
-        "Could not submit. Please try again.";
-    }
+    this.reset();
   });
 </script>
   <footer>
